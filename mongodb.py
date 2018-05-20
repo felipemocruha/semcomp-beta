@@ -12,8 +12,8 @@ class Movie(me.Document):
     year = me.IntField()
     has_sequel = me.BooleanField()
     imdb_url = me.URLField()
-    score = me.DecimalField()
     cast = me.EmbeddedDocumentListField(Star)
+    score = me.DecimalField()
 
 
 def list_movies():
@@ -30,9 +30,11 @@ if __name__ == '__main__':
     talia_shire = Star(name='Talia Shire', gender='Female')
 
     #create movie
-    the_godfather = Movie(title='The Godfather', year=1972, has_sequel=True,
+    the_godfather = Movie(title='The Godfather',
+                          year=1972, has_sequel=True,
                           imdb_url='https://www.imdb.com/title/tt0068646',
-                          score=9.2, cast=[marlon_brando, al_pacino, talia_shire])
+                          cast=[marlon_brando, al_pacino, talia_shire],
+                          score=9.2)
 
     #save movie to database
     the_godfather.save()

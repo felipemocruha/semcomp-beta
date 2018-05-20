@@ -18,6 +18,7 @@ def scale_dataset(dataframe):
     scaled = scaler.fit_transform(dataframe)
     return pd.DataFrame(scaled, columns=dataframe.columns)
 
+
 def split_train_test(dataset, ratio=0.8):
     np.random.seed(0)
     train_size = int(ratio * len(dataset))
@@ -39,8 +40,9 @@ def create_model(input_shape):
     model.add(Dense(30, activation='sigmoid'))
     model.add(Dense(10, activation='sigmoid'))
     model.add(Dense(3, activation='softmax'))
+    model.compile(loss='categorical_crossentropy',
+                  optimizer='adam', metrics=['accuracy'])
 
-    model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
     return model
 
 
@@ -66,7 +68,7 @@ if __name__ == '__main__':
                      validation_data=(test_x, test_y))
 
     #plot training and test loss history
-    plt.figure(1)
+    plt.figure()
     plt.title('Loss history')
     plt.xlabel('Epoch')
     plt.ylabel('Loss')
@@ -76,7 +78,7 @@ if __name__ == '__main__':
 
 
     #plot training and test accuracy history
-    plt.figure(2)
+    plt.figure()
     plt.title('Accuracy history')
     plt.xlabel('Epoch')
     plt.ylabel('Accuracy')
